@@ -11,6 +11,8 @@ const blog = defineCollection({
 		// Transform string to Date object
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
+		// true にすると非公開（下書き）。省略した場合は公開扱い
+		draft: z.boolean().default(false),
 	}),
 });
 
