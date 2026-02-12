@@ -18,19 +18,39 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
-
+			<ul>
 				{posts.map((post) => {
 					const date = post.data.pubDate;
 					const formatted = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
 					return (
-
-							<span>{formatted}</span>
+						<li>
+							<span class="date">{formatted}</span>
 							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-							<br/>
+						</li>
 					);
 				})}
-
+			</ul>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	li {
+		display: grid;
+		grid-template-columns: 7em 1fr;
+		gap: 1.5em;
+		align-items: baseline;
+		padding: 0.5em 0;
+	}
+	.date {
+		color: rgb(var(--gray));
+		font-size: 0.9em;
+		white-space: nowrap;
+	}
+</style>
