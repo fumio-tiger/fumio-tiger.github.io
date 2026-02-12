@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const posts = (await getCollection('blog')).sort(
@@ -19,16 +20,12 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<ul>
-				{posts.map((post) => {
-					const date = post.data.pubDate;
-					const formatted = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
-					return (
-						<li>
-							<span class="date">{formatted}</span>
-							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-						</li>
-					);
-				})}
+				{posts.map((post) => (
+					<li>
+						<FormattedDate date={post.data.pubDate} />
+						<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+					</li>
+				))}
 			</ul>
 		</main>
 		<Footer />
@@ -48,7 +45,7 @@ const posts = (await getCollection('blog')).sort(
 		align-items: baseline;
 		padding: 0.5em 0;
 	}
-	.date {
+	time {
 		color: rgb(var(--gray));
 		font-size: 0.9em;
 		white-space: nowrap;
