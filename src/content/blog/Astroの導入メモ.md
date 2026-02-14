@@ -40,15 +40,6 @@ npm create astro@latest
 	- `.github/workflows/deploy.yml`として追加
 1. Astroの `astro.config.mjs`にある`site`のURLを変更する
 
+な感じで完了です。
 
-
-
-## まとめ
-
-今回は、Astro を使ったブログ作成の初期セットアップとして、以下の点を確認しました。
-
-- Astro のプロジェクト作成方法
-- devcontainer は必須ではないこと
-- GitHub Pages へ公開できること
-
-Astro は導入が非常に簡単で、ブログ用途であれば気軽に始められる印象でした。
+あとはmainブランチにpushするか、mergeするだけでサイトが公開されます。
