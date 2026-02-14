@@ -23,7 +23,14 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 				{posts.map((post) => (
 					<li>
 						<FormattedDate date={post.data.pubDate} />
-						<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+						<div class="post-info">
+							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+							<div class="tags">
+								{post.data.tags.map((tag) => (
+									<a href={`/tags/${tag}/`} class="tag">{tag}</a>
+								))}
+							</div>
+						</div>
 					</li>
 				))}
 			</ul>
@@ -49,5 +56,23 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 		color: rgb(var(--gray));
 		font-size: 0.9em;
 		white-space: nowrap;
+	}
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.3em;
+		margin-top: 0.3em;
+	}
+	.tag {
+		background-color: rgb(var(--gray-light));
+		color: rgb(var(--gray-dark));
+		border-radius: 4px;
+		padding: 0.1em 0.5em;
+		font-size: 0.8em;
+		text-decoration: none;
+	}
+	.tag:hover {
+		background-color: rgb(var(--gray));
+		color: white;
 	}
 </style>

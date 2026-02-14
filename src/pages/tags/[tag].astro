@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	// 全タグを収集してユニークにする
+	const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+	return tags.map((tag) => ({
+		params: { tag },
+		props: {
+			posts: posts
+				.filter((post) => post.data.tags.includes(tag))
+				.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+		},
+	}));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`${tag} - ${SITE_TITLE}`} description={`「${tag}」タグの記事一覧`} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1 class="tag-title">#{tag}</h1>
+			<ul>
+				{posts.map((post) => (
+					<li>
+						<FormattedDate date={post.data.pubDate} />
+						<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+					</li>
+				))}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.tag-title {
+		font-size: 1.5em;
+		margin-bottom: 1em;
+	}
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	li {
+		display: grid;
+		grid-template-columns: 7em 1fr;
+		gap: 1.5em;
+		align-items: baseline;
+		padding: 0.5em 0;
+	}
+	time {
+		color: rgb(var(--gray));
+		font-size: 0.9em;
+		white-space: nowrap;
+	}
+</style>

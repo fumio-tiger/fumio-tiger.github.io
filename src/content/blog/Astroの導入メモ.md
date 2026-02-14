@@ -2,6 +2,7 @@
 title: 'Astroでブログを作ってみる（導入メモ）'
 description: 'Astroでブログを作ってみる（導入メモ）'
 pubDate: '2026/2/14'
+tags: ['Astro']
 ---
 
 Astroを使ってブログを作ってみようと思い、導入手順をメモとして置いときます
