@@ -31,14 +31,24 @@ npm create astro@latest
 
 作成した Astro のサイトは、GitHub Pages で公開することができそうなので、公式ドキュメントの手順を参照しながら設定します
 
-[Deploy your Astro Site to GitHub Pages | Docs](https://docs.astro.build/en/guides/deploy/github/)
+[AstroサイトをGitHub Pagesにデプロイする | Docs](https://docs.astro.build/ja/guides/deploy/github/)
+
+手順的には
+
+1. GitHubのリモートリポジトリを `<owner_name>.github.io` にして作成する
+1. Astroの公式サイトで提供されているGitHub Actionsのコードをそのまま利用する
+	- `.github/workflows/deploy.yml`として追加
+1. Astroの `astro.config.mjs`にある`site`のURLを変更する
+
+
 
 
 ## まとめ
 
 今回は、Astro を使ったブログ作成の初期セットアップとして、以下の点を確認しました。
-	•	Astro のプロジェクト作成方法
-	•	devcontainer は必須ではないこと
-	•	GitHub Pages へ公開できること
+
+- Astro のプロジェクト作成方法
+- devcontainer は必須ではないこと
+- GitHub Pages へ公開できること
 
 Astro は導入が非常に簡単で、ブログ用途であれば気軽に始められる印象でした。
