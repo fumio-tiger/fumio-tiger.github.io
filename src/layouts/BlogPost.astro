@@ -1,11 +1,11 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/Header.astro";
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<"blog">["data"];
 
 const { title, description, pubDate, updatedDate, tags } = Astro.props;
 ---
@@ -27,7 +27,7 @@ const { title, description, pubDate, updatedDate, tags } = Astro.props;
 				color: rgb(var(--gray-dark));
 			}
 			.title {
-				width: 960px;
+				width: 1200px;
 				max-width: calc(100% - 2em);
 				margin: 0 auto 1em;
 				padding: 1em;
@@ -83,9 +83,13 @@ const { title, description, pubDate, updatedDate, tags } = Astro.props;
 					</div>
 					<h1>{title}</h1>
 					<div class="tags">
-						{tags.map((tag) => (
-							<a href={`/tags/${tag}/`} class="tag">{tag}</a>
-						))}
+						{
+							tags.map((tag) => (
+								<a href={`/tags/${tag}/`} class="tag">
+									{tag}
+								</a>
+							))
+						}
 					</div>
 					<hr />
 				</div>
