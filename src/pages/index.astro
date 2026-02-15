@@ -6,7 +6,7 @@ import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+const posts = (await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
@@ -24,7 +24,10 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 					<li>
 						<FormattedDate date={post.data.pubDate} />
 						<div class="post-info">
-							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+							<a href={`/blog/${post.id}/`}>
+							{post.data.draft && <span class="draft-badge">DRAFT</span>}
+							{post.data.title}
+						</a>
 							<div class="tags">
 								{post.data.tags.map((tag) => (
 									<a href={`/tags/${tag}/`} class="tag">{tag}</a>
@@ -74,5 +77,15 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	.tag:hover {
 		background-color: rgb(var(--gray));
 		color: white;
+	}
+	.draft-badge {
+		background-color: #e85d04;
+		color: white;
+		border-radius: 4px;
+		padding: 0.1em 0.4em;
+		font-size: 0.7em;
+		font-weight: bold;
+		margin-right: 0.4em;
+		vertical-align: middle;
 	}
 </style>
